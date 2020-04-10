@@ -46,7 +46,7 @@ def get_args():
 
 # --------------------------------------------------
 def main():
-    """Make a jazz noise here"""
+    """Open CSV and update coordinates"""
     startTime = datetime.now()
 
     args = get_args()
@@ -72,15 +72,6 @@ def main():
         subprocess.call(cmd, shell=True)
 
     print(f'Done, process took {datetime.now() - startTime}. See {args.outdir}.')
-    #num = 0
-    #for i in images:
-    #    num += 1
-    #    ds = gdal.Open(i)
-    #    cmd = f'gdal_translate -a_ullr {top_left_lon} {top_left_lat} {bottom_right_lon} {bottom_right_lat} -a_srs EPSG:4269 input.png output.tif'
-    #    subprocess.call(cmd, shell=True)
-
-
-
 
 
 # --------------------------------------------------

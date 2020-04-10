@@ -47,7 +47,7 @@ def get_args():
 
 # --------------------------------------------------
 def main():
-    """Do some magic here!"""
+    """Collect coordinates and make a CSV file"""
 
     args = get_args()
     # Make the ouput directory
