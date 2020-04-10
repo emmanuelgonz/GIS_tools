@@ -1,5 +1,5 @@
 # GIS_tools
-A collection of python scripts for various GIS tasks. 
+A collection of python scripts for various GIS tasks. These scripts were developed for data processing for the world's largest phenotyping platform at the University of Arizona's Maricopa Agricultural Center.  
 
 ## Adding GPS coordinates to EXIF metadata
 The script `add_exif_tif.py` adds EXIF metadata to TIF files. Just feed it the directory where your files are located. 
