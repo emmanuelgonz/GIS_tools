@@ -9,3 +9,6 @@ The script `edit_gps.py` edits the corner coordinates within your TIF file. Just
 
 ## Adding GPS coordinates to EXIF metadata
 The script `add_exif_tif.py` adds EXIF metadata to TIF files. Just feed it the directory where your files are located. 
+
+## Stitching images into plots 
+The script `stitch_all_plots.py` stitches images that are split into plot subdirectories. It places the stitched image into the corresponding plot subdirectory. This script is used after AgPipeline's plotclip extractor. 
