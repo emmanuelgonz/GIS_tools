@@ -16,6 +16,7 @@ import csv
 import subprocess
 import time
 import time
+import posixpath
 
 start = time.time()
 
@@ -49,19 +50,33 @@ def main():
         num_sub += 1
         plot = subdire.split('/')[-1]
         good_plot = plot.split(' ')
+        cwd = os.getcwd()
+        plot_dir = cwd + '/' + args.dir + plot#.replace(' ', '\ ') + '/'
+        full_dir = os.path.join(plot_dir)
         plot_name = '_'.join(good_plot)
+        #print(plot_name)
+        #print(plot_dir)
         print(f'>{num_sub:5}: {subdire}')
 
-        images = glob.glob(subdire + '/*.tif', recursive=True)
+        if num_sub == 1:
+            os.chdir(subdire)
+        if num_sub >= 2:
+            os.chdir('../')
+            cwd = os.getcwd()
+            ch_path = cwd + '/' + plot
+            os.chdir(ch_path)
+            print(os.getcwd())
+
+        images = glob.glob('*.tif', recursive=True)
 
         img_list = []
         for i in images:
             image = i.split('/')[-1]
             img_list.append(image)
         img_str = ' '.join(img_list)
+        #print(img_str)
 
         #img_path = os.path.join(subdir)
-        os.chdir(subdire)
 
         cmd = f'gdalbuildvrt mosaic.vrt {img_str}'
         subprocess.call(cmd, shell=True)
