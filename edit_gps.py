@@ -7,15 +7,11 @@ Purpose: Update GPS coordiantes on TIF images in a given directory.
 
 import argparse
 import os
-import sys
-from osgeo import gdal
-import numpy as np
-import pandas as pd
-import glob
-import csv
-from datetime import datetime
 import subprocess
+import glob
 import time
+from osgeo import gdal
+import pandas as pd
 
 start = time.time()
 
@@ -51,15 +47,15 @@ def get_args():
 # --------------------------------------------------
 def main():
     """Open CSV and update coordinates"""
-    startTime = datetime.now()
 
     args = get_args()
+
     if not os.path.isdir(args.outdir):
         os.makedirs(args.outdir)
 
     images = glob.glob(args.dir + "*.tif", recursive=True)
 
-    df = pd.read_csv(args.csv, index_col = 'Filename', usecols = ['Filename', 'Upper left', 'Lower right'])
+    df = pd.read_csv(args.csv, index_col='Filename', usecols=['Filename', 'Upper left', 'Lower right'])
 
     num = 0
     for i in images:
@@ -85,6 +81,7 @@ def main():
             print(f'Done - Processing time: {ind_time}' + "\n")
         else:
             continue
+
     end = time.time()
     total_time = end - start
     print(f'Done, process took {total_time}. Outputs saved in {args.outdir}.')

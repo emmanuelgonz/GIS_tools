@@ -7,15 +7,9 @@ Purpose: Stitch geo-corrected images into plot 'orthos'
 
 import argparse
 import os
-import sys
-from osgeo import gdal
-import numpy as np
-import pandas as pd
 import glob
-import csv
 import subprocess
 import time
-import posixpath
 
 start = time.time()
 
@@ -40,19 +34,15 @@ def main():
 
     args = get_args()
     directories = glob.glob(args.dir + 'MAC*')
-    #print(directories)
-    #print(os)
 
     num_sub = 0
     for subdire in directories:
         start2 = time.time()
         num_sub += 1
         plot = subdire.split('/')[-1]
-        good_plot = plot.split(' ')
+        plot_split = plot.split(' ')
         cwd = os.getcwd()
-        plot_dir = cwd + '/' + args.dir + plot
-        full_dir = os.path.join(plot_dir)
-        plot_name = '_'.join(good_plot)
+        plot_name = '_'.join(plot_split)
 
         print(f'>{num_sub:5} {subdire}')
 
