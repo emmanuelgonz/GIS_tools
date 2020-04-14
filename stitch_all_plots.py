@@ -15,7 +15,6 @@ import glob
 import csv
 import subprocess
 import time
-import time
 import posixpath
 
 start = time.time()
@@ -51,12 +50,11 @@ def main():
         plot = subdire.split('/')[-1]
         good_plot = plot.split(' ')
         cwd = os.getcwd()
-        plot_dir = cwd + '/' + args.dir + plot#.replace(' ', '\ ') + '/'
+        plot_dir = cwd + '/' + args.dir + plot
         full_dir = os.path.join(plot_dir)
         plot_name = '_'.join(good_plot)
-        #print(plot_name)
-        #print(plot_dir)
-        print(f'>{num_sub:5}: {subdire}')
+
+        print(f'>{num_sub:5} {subdire}')
 
         if num_sub == 1:
             os.chdir(subdire)
@@ -74,9 +72,6 @@ def main():
             image = i.split('/')[-1]
             img_list.append(image)
         img_str = ' '.join(img_list)
-        #print(img_str)
-
-        #img_path = os.path.join(subdir)
 
         cmd = f'gdalbuildvrt mosaic.vrt {img_str}'
         subprocess.call(cmd, shell=True)
@@ -84,9 +79,13 @@ def main():
         cmd2 = f'gdal_translate -co COMPRESS=LZW -co BIGTIFF=YES -outsize 100% 100% mosaic.vrt {plot_name}_ortho.tif'
         subprocess.call(cmd2, shell=True)
 
-        end = time.time()
-        total_time = end - start2
+        end2 = time.time()
+        total_time = end2 - start2
         print(f'Done - Processing time: {total_time}' + "\n")
+
+    end = time.time()
+    total_time = end - start
+    print(f'Done, process took {total_time}. Output file is {plot_name}_ortho.tif.')
 
 
 # --------------------------------------------------
