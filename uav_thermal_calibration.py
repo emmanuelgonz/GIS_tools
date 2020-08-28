@@ -40,25 +40,6 @@ def get_args():
                         type=str,
                         default='uav_tif_calibration')
 
-    # parser.add_argument('-i',
-    #                     '--int',
-    #                     help='A named integer argument',
-    #                     metavar='int',
-    #                     type=int,
-    #                     default=0)
-
-    # parser.add_argument('-f',
-    #                     '--file',
-    #                     help='A readable file',
-    #                     metavar='FILE',
-    #                     type=argparse.FileType('r'),
-    #                     default=None)
-
-    # parser.add_argument('-o',
-    #                     '--on',
-    #                     help='A boolean flag',
-    #                     action='store_true')
-
     args = parser.parse_args()
 
     if '/' not in args.dir:
@@ -164,7 +145,7 @@ def main():
         meta_df = pd.read_csv(meta_path, delimiter=';')
 
         g_img = gdal.Open(img)
-        # New code
+
         exif_dict = piexif.load(img)
         zeroth = str(exif_dict['0th'])
         exif = str(exif_dict['Exif'])
@@ -178,12 +159,11 @@ def main():
 
         create_geotiff(tc, (0, 0, 0, 0), outfile, None, True, None,
             extra_metadata=[
-                f'0th={str(zeroth.strip("{}"))}\n'
-                f'Exif={str(exif.strip("{}"))}\n'
-                f'GPS={str(GPS.strip("{}"))}\n'
+                f'0th={str(zeroth.strip("{}"))}\n\
+                Exif={str(exif.strip("{}"))}\n\
+                GPS={str(GPS.strip("{}"))}\n'
             ], compress=False)
 
-        #os.chdir(out_path)
         cmd = f'exiftool -overwrite_original -TagsFromFile {img} {outfile}'
         subprocess.call(cmd, shell=True)
 
