@@ -11,6 +11,7 @@ import sys
 from osgeo import gdal
 import cv2
 import matplotlib.pyplot as plt
+#import matplotlib
 import pandas as pd
 import glob
 import numpy as np
@@ -124,6 +125,9 @@ def main():
     img_list = glob.glob(f'{args.dir}/*/*.tif')
     print(img_list)
 
+    if not os.path.isdir(args.outdir):
+        os.makedirs(args.outdir)
+
     for one_img in img_list:
         temp_cnt += 1
         date = one_img.split('/')[-3][-10:]
@@ -135,6 +139,11 @@ def main():
         #print(f'{trt_zone}\n')
         print(f'Processing {plot_raw}')
 
+        img_out_path = os.path.join(args.outdir, plot_name)
+
+        if not os.path.isdir(img_out_path):
+            os.makedirs(img_out_path)
+
         g_img = gdal.Open(one_img)
         a_img = g_img.GetRasterBand(1).ReadAsArray()
         m = stats.mode(a_img)
@@ -145,6 +154,10 @@ def main():
         a_img[a_img > peak] = np.nan
         mean_tc = np.nanmean(a_img) - 273.15
 
+        fig = plt.figure()
+        plt.imshow(a_img)
+        plt.savefig(img_out_path + f'/{plot_name}.png', transparent=True)
+
         temp_dict[temp_cnt] = {
                 'date': date,
                 'treatment': trt_zone,
@@ -153,14 +166,13 @@ def main():
                 'plot_temp': temp,
                 'mean_plant_temp': mean_tc
                 }
+
     df = pd.DataFrame.from_dict(temp_dict, orient='index', columns=['date',
                                                                     'treatment',
                                                                     'plot',
                                                                     'genotype',
                                                                     'plot_temp',
                                                                     'mean_plant_temp'])
-    if not os.path.isdir(args.outdir):
-        os.makedirs(args.outdir)
 
     df.to_csv(os.path.join(args.outdir, args.outname + '.csv'), index=False)
 

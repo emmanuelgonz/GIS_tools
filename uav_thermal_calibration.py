@@ -119,6 +119,7 @@ def raw2temp(array, meta_df):
                     -9.331169837051072e-01,
                     2.228396565151564e+03]
 
+
     T_list = [5, 15, 20, 25, 30, 35, 40, 45]
 
     a = [P_5_outmean[0], P_15_outmean[0], P_20_outmean[0],
@@ -142,7 +143,6 @@ def raw2temp(array, meta_df):
     pxl_temp = P_val[0]*im**3 + P_val[1]*im**2 + P_val[2]*im + P_val[3]
 
     return pxl_temp
-
 
 
 # --------------------------------------------------
@@ -191,7 +191,6 @@ def main():
         exif_dict = piexif.load(outfile)
         gps_data = gpsphoto.getGPSData(outfile)
         print(f'{gps_data}\n')
-
 
 
 # --------------------------------------------------
