@@ -119,10 +119,6 @@ def raw2temp(array, meta_df):
                     -9.331169837051072e-01,
                     2.228396565151564e+03]
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 142d1faaa1d2ecdc9d723da44253f1356e29fa75
     T_list = [5, 15, 20, 25, 30, 35, 40, 45]
 
     a = [P_5_outmean[0], P_15_outmean[0], P_20_outmean[0],
@@ -148,10 +144,6 @@ def raw2temp(array, meta_df):
     return pxl_temp
 
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 142d1faaa1d2ecdc9d723da44253f1356e29fa75
 # --------------------------------------------------
 def main():
     """Make a jazz noise here"""
@@ -200,10 +192,6 @@ def main():
         print(f'{gps_data}\n')
 
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 142d1faaa1d2ecdc9d723da44253f1356e29fa75
 # --------------------------------------------------
 if __name__ == '__main__':
     main()
