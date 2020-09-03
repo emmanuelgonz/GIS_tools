@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-Author : emmanuelgonzalez
+Author : Emmanuel Gonzalez
 Date   : 2020-08-10
-Purpose: Rock the Casbah
+Purpose: Calibrate UAV thermal images
 """
 
 import argparse
@@ -127,7 +127,7 @@ def raw2temp(array, meta_df):
 
 # --------------------------------------------------
 def main():
-    """Make a jazz noise here"""
+    """Calibrate images here"""
     args = get_args()
     img_list = glob.glob(f'{args.dir}/*.tif', recursive=True)
     out_path = args.outdir
@@ -143,9 +143,9 @@ def main():
         print(outfile)
 
         meta_df = pd.read_csv(meta_path, delimiter=';')
+        print(meta_df['TempFPA'][0])
 
         g_img = gdal.Open(img)
-
         exif_dict = piexif.load(img)
         zeroth = str(exif_dict['0th'])
         exif = str(exif_dict['Exif'])
